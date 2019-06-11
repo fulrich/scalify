@@ -24,4 +24,4 @@ lazy val scalify = project in file("scalify")
 
 // Subprojects
 lazy val scalifyplusplay = (project in file("scalifyplus/play"))
-  .dependsOn(scalify, scalify % "test->test")
+  .dependsOn(scalify % "test->test;compile->compile")
