@@ -6,4 +6,4 @@ ThisBuild / scalaVersion := "2.12.8"
 lazy val scalify = project in file("scalify")
 
 lazy val scalifyplusplay = (project in file("scalifyplus/play"))
-  .dependsOn(scalify)
+  .dependsOn(scalify, scalify % "test->test")
