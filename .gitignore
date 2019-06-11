@@ -1,2 +1,6 @@
+.DS_STORE
+.idea
+target
+
 *.class
 *.log
