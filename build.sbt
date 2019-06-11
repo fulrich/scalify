@@ -1,8 +1,3 @@
-// Build Details
-ThisBuild / organization        := "com.github.fulrich"
-ThisBuild / version             := "0.1.0-SNAPSHOT"
-ThisBuild / crossScalaVersions  := Seq("2.11.12", "2.12.8")
-
 // Publishing Information
 inThisBuild(List(
   organization := "com.github.fulrich",
@@ -15,8 +10,14 @@ inThisBuild(List(
       "9284621+fulrich@users.noreply.github.com",
       url("https://www.fredriculrich.com")
     )
-  )
+  ),
+  scalaVersion := "2.12.8",
+  crossScalaVersions := List("2.11.12", "2.12.8"),
 ))
+
+// Root Project Setup
+name := "ScalifyRoot"
+skip in publish := true
 
 
 // Core Scalify
