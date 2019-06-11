@@ -1,7 +1,5 @@
 name := """scalify"""
 
-scalaVersion := "2.12.8"
-
 // Production Dependencies
 libraryDependencies ++= Seq(
   "com.github.pureconfig" %% "pureconfig" % "0.11.0",
