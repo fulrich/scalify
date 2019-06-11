@@ -18,4 +18,4 @@ jobs:
   include:
     - stage: release
       env: JOB=Release
-      script: sbt ci-release
+      script: sbt scalify/ci-release
