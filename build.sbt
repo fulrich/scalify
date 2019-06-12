@@ -11,6 +11,7 @@ inThisBuild(List(
       url("https://www.fredriculrich.com")
     )
   ),
+  resolvers += Resolver.sonatypeRepo("releases"),
   scalaVersion := "2.12.8",
   crossScalaVersions := List("2.11.12", "2.12.8"),
 ))

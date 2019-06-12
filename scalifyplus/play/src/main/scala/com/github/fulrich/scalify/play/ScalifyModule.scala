@@ -12,7 +12,6 @@ class ScalifyModule extends Module {
   def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = {
     Seq(
       bind[ShopifyConfiguration].toInstance(ShopifyConfigurationFromFile.Loaded),
-      bind[HmacAction].to[HmacAction]
     )
   }
 }
