@@ -14,6 +14,7 @@ inThisBuild(List(
   resolvers += Resolver.sonatypeRepo("releases"),
   scalaVersion := "2.12.8",
   crossScalaVersions := List("2.11.12", "2.12.8"),
+  publishArtifact in Test := true
 ))
 
 // Root Project Setup
