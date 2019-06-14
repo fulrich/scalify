@@ -8,6 +8,6 @@ import org.scalacheck.Gen
 object InstallParametersGenerator {
   def apply(): Gen[InstallParameters] = for {
     shop <- Generate.alpha
-    timestamp <- Generate.alpha
+    timestamp <- Generate.instant.recent
   } yield InstallParameters(shop, timestamp)
 }

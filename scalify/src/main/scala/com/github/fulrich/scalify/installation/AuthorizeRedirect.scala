@@ -44,12 +44,4 @@ object AuthorizeRedirect {
   def apply(parameters: Option[InstallParameters], redirectUri: String)
            (implicit configuration: ShopifyConfiguration): Option[AuthorizeRedirect] =
     parameters.map(apply(_, redirectUri))
-
-  def fromMap(parameters: Map[String, String], redirectUri: String)
-             (implicit configuration: ShopifyConfiguration): Option[AuthorizeRedirect] =
-    InstallParameters.fromMap(parameters).map { installParameters => apply(installParameters, redirectUri) }
-
-  def fromSeqMap(parameters: Map[String, Seq[String]], redirectUri: String)
-                (implicit configuration: ShopifyConfiguration): Option[AuthorizeRedirect] =
-    InstallParameters.fromSeqMap(parameters).map { installParameters => apply(installParameters, redirectUri) }
 }
