@@ -3,13 +3,11 @@ package com.github.fulrich.scalify.play.bindings
 import java.time.Instant
 
 import com.github.fulrich.scalify.installation.InstallParameters
+import com.github.fulrich.scalify.installation.InstallParameters._
 import play.api.mvc.QueryStringBindable
 
 
 object InstallParametersBindable extends EmptyKeyQueryStringBindable[InstallParameters] {
-  val ShopKey = "shop"
-  val TimestampKey = "timestamp"
-
   val stringBinder: QueryStringBindable[String] = implicitly[QueryStringBindable[String]]
   val instantBinder: QueryStringBindable[Instant] = InstantBindable
 
