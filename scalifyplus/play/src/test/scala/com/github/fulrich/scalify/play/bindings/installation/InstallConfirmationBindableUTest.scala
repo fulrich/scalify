@@ -1,4 +1,4 @@
-package com.github.fulrich.scalify.play.bindings
+package com.github.fulrich.scalify.play.bindings.installation
 
 import com.github.fulrich.scalify.generators.installation.InstallConfirmationGenerator
 import com.github.fulrich.testcharged.generators._

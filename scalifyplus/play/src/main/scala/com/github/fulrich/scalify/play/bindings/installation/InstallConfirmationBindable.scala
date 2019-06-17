@@ -1,11 +1,11 @@
-package com.github.fulrich.scalify.play.bindings
+package com.github.fulrich.scalify.play.bindings.installation
 
 import java.time.Instant
 
 import com.github.fulrich.scalify.installation.InstallConfirmation
-import com.github.fulrich.scalify.installation.InstallConfirmation._
+import com.github.fulrich.scalify.installation.InstallConfirmation.{AuthorizationCodeKey, NonceKey, ShopKey, TimestampKey}
+import com.github.fulrich.scalify.play.bindings.{EmptyKeyQueryStringBindable, InstantBindable}
 import play.api.mvc.QueryStringBindable
-
 
 object InstallConfirmationBindable extends EmptyKeyQueryStringBindable[InstallConfirmation] {
   val stringBinder: QueryStringBindable[String] = implicitly[QueryStringBindable[String]]

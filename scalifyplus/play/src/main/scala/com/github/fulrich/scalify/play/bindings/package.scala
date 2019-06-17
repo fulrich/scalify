@@ -2,13 +2,14 @@ package com.github.fulrich.scalify.play
 
 import java.time.Instant
 
-import com.github.fulrich.scalify.installation.{InstallConfirmation, InstallParameters}
+import com.github.fulrich.scalify.play.bindings.installation.InstallationBindings
 import play.api.mvc.QueryStringBindable
 
 
-package object bindings {
-  implicit val timestampBindable: QueryStringBindable[Instant] = InstantBindable
+package object bindings extends InstallationBindings {
+  val routeImports: Seq[String] =
+    Seq("com.github.fulrich.scalify.play.bindings._") ++
+    InstallationBindings.RouteImports
 
-  implicit val installParametersBindable: QueryStringBindable[InstallParameters] = InstallParametersBindable
-  implicit val installConfirmationBindable: QueryStringBindable[InstallConfirmation] = InstallConfirmationBindable
+  implicit val timestampBindable: QueryStringBindable[Instant] = InstantBindable
 }
