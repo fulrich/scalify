@@ -1,0 +1,70 @@
+package com.github.fulrich.scalify.play.installation
+
+import com.github.fulrich.scalify.ShopifyConfiguration
+import com.github.fulrich.scalify.hmac.ShopifyHmac
+import com.github.fulrich.scalify.play.ShopifyInjectedApplication
+import com.github.fulrich.scalify.play.hmac.HmacAction
+import org.scalatest.{FunSuite, Matchers}
+import org.scalatestplus.play.guice.GuiceOneAppPerTest
+import play.api.mvc._
+import play.api.test.FakeRequest
+import play.api.test.Helpers.{GET, contentAsString, contentType, status, stubControllerComponents, _}
+
+import scala.concurrent.Future
+
+
+class InstallActionUTest extends FunSuite with Matchers with GuiceOneAppPerTest with ShopifyInjectedApplication {
+  class TestController(hmacAction: HmacAction, installAction: InstallAction, cc: ControllerComponents) extends AbstractController(cc) {
+    def install = hmacAction.andThen(installAction) { request =>
+      Ok(request.parameters.shop + "|" + request.parameters.timestamp)
+    }
+  }
+
+  trait Fixture {
+    val configuration: ShopifyConfiguration = inject[ShopifyConfiguration]
+    val controller = new TestController(inject[HmacAction], inject[InstallAction], stubControllerComponents())
+    def parameters: String
+
+    def request: Request[AnyContentAsEmpty.type] = {
+      val hmac = ShopifyHmac.calculateHmac(parameters)(configuration)
+      FakeRequest(GET, s"/install?hmac=$hmac&$parameters")
+    }
+  }
+
+
+  test ("InstallAction will return an UnprocessableEntity error if no shop is provided") { new Fixture {
+    val parameters: String = "timestamp=1557768838"
+    val result: Future[Result] = controller.install(request)
+
+    status(result) shouldBe UNPROCESSABLE_ENTITY
+    contentType(result) shouldBe Some("text/plain")
+    contentAsString(result) should include(InstallAction.MissingShopMessage)
+  } }
+
+  test ("InstallAction will return an UnprocessableEntity error if no timestamp is provided") { new Fixture {
+    val parameters: String = "shop=store.shopify.com"
+    val result: Future[Result] = controller.install(request)
+
+    status(result) shouldBe UNPROCESSABLE_ENTITY
+    contentType(result) shouldBe Some("text/plain")
+    contentAsString(result) should include(InstallAction.MissingTimestampMessage)
+  } }
+
+  test ("InstallAction will return an UnprocessableEntity error if the timestamp cannot be parsed") { new Fixture {
+    val parameters: String = "shop=store.shopify.com&timestamp=art1557768838"
+    val result: Future[Result] = controller.install(request)
+
+    status(result) shouldBe UNPROCESSABLE_ENTITY
+    contentType(result) shouldBe Some("text/plain")
+    contentAsString(result) should include(InstallAction.InvalidTimestampMessage)
+  } }
+
+  test ("InstallAction will have the parsed Shop and Timestamp if they were valid") { new Fixture {
+    val parameters: String = "shop=store.shopify.com&timestamp=1557768838"
+    val result: Future[Result] = controller.install(request)
+
+    status(result) shouldBe OK
+    contentType(result) shouldBe Some("text/plain")
+    contentAsString(result) should include("store.shopify.com|2019-05-13T17:33:58Z")
+  } }
+}
