@@ -1,6 +1,6 @@
 package com.github.fulrich.scalify.play.installation
 
-import com.github.fulrich.scalify.installation.InstallConfirmation
+import com.github.fulrich.scalify.installation.AuthorizeConfirmation
 import com.github.fulrich.scalify.play.hmac.HmacRequest
 import javax.inject.Inject
 import play.api.mvc.Results.UnprocessableEntity
@@ -9,7 +9,7 @@ import play.api.mvc.{ActionRefiner, Result, WrappedRequest}
 import scala.concurrent.{ExecutionContext, Future}
 
 
-class AuthorizeRequest[A](val parameters: InstallConfirmation, request: HmacRequest[A]) extends WrappedRequest[A](request)
+class AuthorizeRequest[A](val parameters: AuthorizeConfirmation, request: HmacRequest[A]) extends WrappedRequest[A](request)
 
 class AuthorizeAction @Inject()(implicit val executionContext: ExecutionContext)
   extends ActionRefiner[HmacRequest, AuthorizeRequest] {

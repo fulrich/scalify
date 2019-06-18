@@ -5,7 +5,7 @@ import com.github.fulrich.testcharged.generators._
 import org.scalatest.{FunSuite, Matchers}
 
 
-class InstallConfirmationUTest extends FunSuite with Matchers {
+class AuthorizeConfirmationUTest extends FunSuite with Matchers {
   test("Can validate the nonce value on the InstallConfirmation") {
     val installConfirmation = InstallConfirmationGenerator().value
 
