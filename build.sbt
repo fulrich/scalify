@@ -16,14 +16,39 @@ inThisBuild(List(
   publishArtifact in Test := true
 ))
 
+// Versions
+val Libraries = new {
+  val TestChargedVersion = "0.1.12"
+  val TestCharged = "com.github.fulrich" %% "test-charged" % TestChargedVersion % Test
+
+  val ScalacticVersion = "3.0.8"
+  val Scalactic = "org.scalactic" %% "scalactic" % ScalacticVersion
+
+  val ScalaTestVersion = "3.0.5"
+  val ScalaTest = "org.scalatest" %% "scalatest" % "3.0.5" % Test
+}
+
 // Root Project Setup
 name := "ScalifyRoot"
 skip in publish := true
 
 
 // Core Scalify
-lazy val scalify = project in file("scalify")
+lazy val scalify = (project in file("scalify"))
+  .settings(
+    libraryDependencies ++= Seq(
+      Libraries.ScalaTest,
+      Libraries.TestCharged
+    )
+  )
 
 // Subprojects
 lazy val scalifyplusplay = (project in file("scalifyplus/play"))
+  .settings(
+    libraryDependencies ++= Seq(
+      Libraries.Scalactic,
+      Libraries.ScalaTest,
+      Libraries.TestCharged
+    )
+  )
   .dependsOn(scalify % "test->test;compile->compile")
