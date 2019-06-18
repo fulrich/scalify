@@ -1,14 +1,18 @@
 package com.github.fulrich.scalify.play.installation
 
 import com.github.fulrich.scalify.ShopifyConfiguration
+import com.github.fulrich.scalify.generators.installation.InstallParametersGenerator
 import com.github.fulrich.scalify.hmac.ShopifyHmac
+import com.github.fulrich.scalify.installation.InstallParameters
 import com.github.fulrich.scalify.play.ShopifyInjectedApplication
+import com.github.fulrich.scalify.play.bindings.InstantBinding
 import com.github.fulrich.scalify.play.hmac.HmacAction
 import org.scalatest.{FunSuite, Matchers}
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.mvc._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{GET, contentAsString, contentType, status, stubControllerComponents, _}
+import com.github.fulrich.testcharged.generators._
 
 import scala.concurrent.Future
 
@@ -32,7 +36,7 @@ class InstallActionUTest extends FunSuite with Matchers with GuiceOneAppPerTest 
   }
 
 
-  test ("InstallAction will return an UnprocessableEntity error if no shop is provided") { new Fixture {
+  test ("InstallAction will return an UnprocessableEntity error if no parameters are provided") { new Fixture {
     val parameters: String = "timestamp=1557768838"
     val result: Future[Result] = controller.install(request)
 
@@ -47,7 +51,7 @@ class InstallActionUTest extends FunSuite with Matchers with GuiceOneAppPerTest 
 
     status(result) shouldBe UNPROCESSABLE_ENTITY
     contentType(result) shouldBe Some("text/plain")
-    contentAsString(result) should include(InstallAction.MissingTimestampMessage)
+    contentAsString(result) should include(InstantBinding.missingInstantMessage(InstallParameters.TimestampKey))
   } }
 
   test ("InstallAction will return an UnprocessableEntity error if the timestamp cannot be parsed") { new Fixture {
@@ -56,15 +60,17 @@ class InstallActionUTest extends FunSuite with Matchers with GuiceOneAppPerTest 
 
     status(result) shouldBe UNPROCESSABLE_ENTITY
     contentType(result) shouldBe Some("text/plain")
-    contentAsString(result) should include(InstallAction.InvalidTimestampMessage)
+    contentAsString(result) should include(InstantBinding.invalidTimestampMessage(InstallParameters.TimestampKey))
   } }
 
   test ("InstallAction will have the parsed Shop and Timestamp if they were valid") { new Fixture {
-    val parameters: String = "shop=store.shopify.com&timestamp=1557768838"
+    val installParameters: InstallParameters = InstallParametersGenerator().value
+    val parameters: String = InstallParametersBinding.unbind(installParameters)
     val result: Future[Result] = controller.install(request)
+    println(parameters)
 
     status(result) shouldBe OK
     contentType(result) shouldBe Some("text/plain")
-    contentAsString(result) should include("store.shopify.com|2019-05-13T17:33:58Z")
+    contentAsString(result) should include(s"${installParameters.shop}|${installParameters.timestamp}")
   } }
 }
