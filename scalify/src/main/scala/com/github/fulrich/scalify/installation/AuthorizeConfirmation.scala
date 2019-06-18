@@ -3,7 +3,7 @@ package com.github.fulrich.scalify.installation
 import java.time.Instant
 
 
-case class InstallConfirmation(
+case class AuthorizeConfirmation(
   shop: String,
   authorizationCode: String,
   nonce: String,
@@ -13,7 +13,7 @@ case class InstallConfirmation(
   def validateNonce(savedNonce: Option[String]): Boolean = savedNonce.contains(nonce)
 }
 
-object InstallConfirmation {
+object AuthorizeConfirmation {
   val ShopKey = "shop"
   val AuthorizationCodeKey = "code"
   val NonceKey = "state"

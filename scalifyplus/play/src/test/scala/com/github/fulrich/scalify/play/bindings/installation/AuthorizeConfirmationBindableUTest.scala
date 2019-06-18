@@ -7,7 +7,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.GET
 
 
-class InstallConfirmationBindableUTest extends FunSuite with Matchers with OptionValues with EitherValues {
+class AuthorizeConfirmationBindableUTest extends FunSuite with Matchers with OptionValues with EitherValues {
 
   test("Can bind and unbind InstallConfirmation from a Query String") {
     val installConfirmation = InstallConfirmationGenerator().value
