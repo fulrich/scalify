@@ -2,7 +2,6 @@ package com.github.fulrich.scalify.play.bindings
 
 import java.time.Instant
 
-import com.github.fulrich.scalify.installation.InstallParameters
 import org.scalactic._
 import play.api.mvc.Request
 
@@ -14,7 +13,7 @@ object InstantBinding {
   def invalidTimestampMessage(key: String) = s"Could not parse key $key to an Instant."
 
   def bind[A](key: String, request: Request[A]): Instant Or Every[String] =
-    request.getQueryString(InstallParameters.TimestampKey) match {
+    request.getQueryString(key) match {
       case Some(timestampString) => parseInstant(key, timestampString)
       case None => Bad(One(missingInstantMessage(key)))
     }

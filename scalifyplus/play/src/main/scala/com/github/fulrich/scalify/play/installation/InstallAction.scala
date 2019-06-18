@@ -22,16 +22,3 @@ class InstallAction @Inject()(implicit val executionContext: ExecutionContext)
         .toEither
     )
 }
-
-object InstallAction {
-  val HmacKey = "hmac"
-
-  val MissingShopMessage = "A valid shop must be provided."
-  val MissingShop = Left(UnprocessableEntity(MissingShopMessage))
-
-  val MissingTimestampMessage = "A valid timestamp must be provided."
-  val MissingTimestamp = Left(UnprocessableEntity(MissingTimestampMessage))
-
-  val InvalidTimestampMessage = s"Could not parse key ${InstallParameters.TimestampKey} to an Instant."
-  val InvalidTimestamp = Left(UnprocessableEntity(InvalidTimestampMessage))
-}

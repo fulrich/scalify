@@ -5,7 +5,7 @@ import com.github.fulrich.scalify.generators.installation.InstallParametersGener
 import com.github.fulrich.scalify.hmac.ShopifyHmac
 import com.github.fulrich.scalify.installation.InstallParameters
 import com.github.fulrich.scalify.play.ShopifyInjectedApplication
-import com.github.fulrich.scalify.play.bindings.InstantBinding
+import com.github.fulrich.scalify.play.bindings.{InstantBinding, StringBinding}
 import com.github.fulrich.scalify.play.hmac.HmacAction
 import org.scalatest.{FunSuite, Matchers}
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
@@ -42,7 +42,7 @@ class InstallActionUTest extends FunSuite with Matchers with GuiceOneAppPerTest 
 
     status(result) shouldBe UNPROCESSABLE_ENTITY
     contentType(result) shouldBe Some("text/plain")
-    contentAsString(result) should include(InstallAction.MissingShopMessage)
+    contentAsString(result) should include(StringBinding.missingStringMessage(InstallParameters.ShopKey))
   } }
 
   test ("InstallAction will return an UnprocessableEntity error if no timestamp is provided") { new Fixture {
