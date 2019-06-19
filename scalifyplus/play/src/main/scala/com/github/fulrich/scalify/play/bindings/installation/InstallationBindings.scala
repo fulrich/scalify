@@ -6,7 +6,7 @@ import play.api.mvc.QueryStringBindable
 
 trait InstallationBindings {
   implicit val installParametersBindable: QueryStringBindable[InstallParameters] = InstallParametersBindable
-  implicit val installConfirmationBindable: QueryStringBindable[AuthorizeConfirmation] = InstallConfirmationBindable
+  implicit val installConfirmationBindable: QueryStringBindable[AuthorizeConfirmation] = AuthorizeConfirmationBindable
 }
 
 object InstallationBindings {

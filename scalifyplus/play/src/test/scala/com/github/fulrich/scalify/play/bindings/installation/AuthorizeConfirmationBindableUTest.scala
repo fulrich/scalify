@@ -12,9 +12,11 @@ class AuthorizeConfirmationBindableUTest extends FunSuite with Matchers with Opt
   test("Can bind and unbind InstallConfirmation from a Query String") {
     val installConfirmation = InstallConfirmationGenerator().value
 
-    val unboundInstallConfirmation = InstallConfirmationBindable.unbind(installConfirmation)
+    val unboundInstallConfirmation = AuthorizeConfirmationBindable.unbind(installConfirmation)
+    println(unboundInstallConfirmation)
     val fakeRequest = FakeRequest(GET, s"/installCallback?$unboundInstallConfirmation")
+    println(AuthorizeConfirmationBindable.bind(fakeRequest.queryString))
 
-    InstallConfirmationBindable.bind(fakeRequest.queryString).value.right.value shouldBe installConfirmation
+    AuthorizeConfirmationBindable.bind(fakeRequest.queryString).value.right.value shouldBe installConfirmation
   }
 }

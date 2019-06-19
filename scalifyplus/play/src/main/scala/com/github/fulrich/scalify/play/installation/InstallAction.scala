@@ -5,6 +5,7 @@ import com.github.fulrich.scalify.play.hmac.HmacRequest
 import javax.inject.Inject
 import play.api.mvc.Results.UnprocessableEntity
 import play.api.mvc.{ActionRefiner, Result, WrappedRequest}
+import com.github.fulrich.scalify.serialization.url._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -16,7 +17,7 @@ class InstallAction @Inject()(implicit val executionContext: ExecutionContext)
 
   override protected def refine[A](request: HmacRequest[A]): Future[Either[Result, InstallRequest[A]]] =
     Future.successful(
-      InstallParametersBinding.bind(request)
+      requiredBind[InstallParameters]("", request.queryString)
         .map(parameters => new InstallRequest(parameters, request))
         .badMap(errors => UnprocessableEntity(errors.toList.mkString("<br>")))
         .toEither

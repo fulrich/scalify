@@ -38,6 +38,7 @@ skip in publish := true
 lazy val scalify = (project in file("scalify"))
   .settings(
     libraryDependencies ++= Seq(
+      Libraries.Scalactic,
       Libraries.ScalaTest,
       Libraries.TestCharged
     )
