@@ -1,6 +1,7 @@
-package com.github.fulrich.scalify.serialization.url
+package com.github.fulrich.scalify.serialization.url.base
 
 import com.github.fulrich.scalify.ScalifyError
+import com.github.fulrich.scalify.serialization.url.UrlBinding
 import io.lemonlabs.uri.QueryString
 import org.scalactic.{Every, Good, Or}
 

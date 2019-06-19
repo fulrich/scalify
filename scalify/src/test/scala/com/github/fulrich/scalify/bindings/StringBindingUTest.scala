@@ -1,6 +1,6 @@
 package com.github.fulrich.scalify.bindings
 
-import com.github.fulrich.scalify.serialization.url.StringBinding
+import com.github.fulrich.scalify.serialization.url.base.StringBinding
 import com.github.fulrich.testcharged.generators._
 import org.scalactic.Good
 import org.scalatest.{FunSuite, Matchers}

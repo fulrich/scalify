@@ -1,9 +1,13 @@
 package com.github.fulrich.scalify.serialization.url
 
+import com.github.fulrich.scalify.ScalifyError
 import io.lemonlabs.uri.QueryString
+import org.scalactic.{Every, Or}
 
 
 trait UrlBindingDsl {
+  type UrlBind[A] = A Or Every[ScalifyError]
+
   def bind[A](key: String, uri: String)(implicit binding: UrlBinding[A]): Option[UrlBind[A]] =
     binding.bind(key, uri)
 

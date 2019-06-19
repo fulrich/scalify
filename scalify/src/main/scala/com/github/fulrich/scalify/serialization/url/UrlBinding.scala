@@ -3,6 +3,7 @@ package com.github.fulrich.scalify.serialization.url
 import java.time.Instant
 
 import com.github.fulrich.scalify.ScalifyError
+import com.github.fulrich.scalify.serialization.url.base.{InstantBinding, StringBinding}
 import io.lemonlabs.uri.{QueryString, Url}
 import org.scalactic.{Bad, Every, One, Or}
 
@@ -38,9 +39,4 @@ trait UrlBinding[A] {
 
 
   def unbind(key: String, value: A): String = s"$key=$value"
-}
-
-object UrlBinding {
-  implicit val stringUrlBinding: UrlBinding[String] = StringBinding
-  implicit val instantUrlBinding: UrlBinding[Instant] = InstantBinding
 }
