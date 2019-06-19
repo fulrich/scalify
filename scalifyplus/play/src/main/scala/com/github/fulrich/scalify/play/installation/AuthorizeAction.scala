@@ -2,10 +2,10 @@ package com.github.fulrich.scalify.play.installation
 
 import com.github.fulrich.scalify.installation.AuthorizeConfirmation
 import com.github.fulrich.scalify.play.hmac.HmacRequest
+import com.github.fulrich.scalify.serialization.url._
 import javax.inject.Inject
 import play.api.mvc.Results._
 import play.api.mvc.{ActionRefiner, Result, WrappedRequest}
-import com.github.fulrich.scalify.serialization.url._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -37,7 +37,7 @@ class AuthorizeAction @Inject()(implicit val executionContext: ExecutionContext)
 
   override protected def refine[A](request: HmacRequest[A]): Future[Either[Result, AuthorizeRequest[A]]] =
     Future.successful(
-      requiredBind[AuthorizeConfirmation]("", request.queryString)
+      bind[AuthorizeConfirmation](request.queryString)
         .map(parameters => new AuthorizeRequest(parameters, request))
         .badMap(errors => UnprocessableEntity(errors.toList.mkString("<br>")))
         .toEither

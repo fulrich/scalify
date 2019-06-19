@@ -8,16 +8,16 @@ import io.lemonlabs.uri.QueryString
 import org.scalactic.Accumulation.withGood
 
 
-object InstallParametersUrlBinding extends UrlBinding[InstallParameters] with UrlBindingDsl {
-  override def bind(key: String, query: QueryString): Option[UrlBind[InstallParameters]] =
-    Option(withGood(
-      requiredBind[String](InstallParameters.ShopKey, query),
-      requiredBind[Instant](InstallParameters.TimestampKey, query)
-    )(InstallParameters.apply))
+object InstallParametersUrlBinding extends ObjectUrlBinding[InstallParameters] with UrlBindingDsl {
+  override def bind(query: QueryString): UrlBind[InstallParameters] =
+    withGood(
+      bind[String](InstallParameters.ShopKey, query),
+      bind[Instant](InstallParameters.TimestampKey, query)
+    )(InstallParameters.apply)
 
-  override def unbind(key: String, parameters: InstallParameters): String =
-    Vector(
+  override def unbind(parameters: InstallParameters): String =
+    unbindList(
       unbind(InstallParameters.ShopKey, parameters.shop),
       unbind(InstallParameters.TimestampKey, parameters.timestamp)
-    ).sorted.mkString("&")
+    )
 }

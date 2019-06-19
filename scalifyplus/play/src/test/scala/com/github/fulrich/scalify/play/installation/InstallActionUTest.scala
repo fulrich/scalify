@@ -62,7 +62,7 @@ class InstallActionUTest extends FunSuite with Matchers with GuiceOneAppPerTest 
 
   test ("InstallAction will have the parsed Shop and Timestamp if they were valid") { new Fixture {
     val installParameters: InstallParameters = InstallParametersGenerator().value
-    val parameters: String = unbind("", installParameters)
+    val parameters: String = unbind(installParameters)
     val result: Future[Result] = controller.install(request)
     println(parameters)
 

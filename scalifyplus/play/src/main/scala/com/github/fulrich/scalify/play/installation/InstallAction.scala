@@ -17,7 +17,7 @@ class InstallAction @Inject()(implicit val executionContext: ExecutionContext)
 
   override protected def refine[A](request: HmacRequest[A]): Future[Either[Result, InstallRequest[A]]] =
     Future.successful(
-      requiredBind[InstallParameters]("", request.queryString)
+      bind[InstallParameters](request.queryString)
         .map(parameters => new InstallRequest(parameters, request))
         .badMap(errors => UnprocessableEntity(errors.toList.mkString("<br>")))
         .toEither

@@ -1,6 +1,5 @@
-package com.github.fulrich.scalify.bindings
+package com.github.fulrich.scalify.serialization.url.base
 
-import com.github.fulrich.scalify.serialization.url.base.InstantBinding
 import com.github.fulrich.testcharged.generators._
 import org.scalactic.Good
 import org.scalatest.{FunSuite, Matchers}
@@ -14,12 +13,12 @@ class InstantBindingUTest extends FunSuite with Matchers {
     val instant = Generate.instant.recent.value
 
     val unboundInstant = InstantBinding.unbind(testKey, instant)
-    InstantBinding.requiredBind(testKey, s"$testDomain?$unboundInstant") shouldBe Good(instant)
+    InstantBinding.bind(testKey, s"$testDomain?$unboundInstant") shouldBe Good(instant)
   }
 
   test("An error will be returned in an Instant Value could not be parsed") {
     val invalidInstantParams = s"$testDomain?$testKey=123invalid123"
 
-    InstantBinding.requiredBind(testKey, invalidInstantParams) shouldBe InstantBinding.invalidTimestamp(testKey)
+    InstantBinding.bind(testKey, invalidInstantParams) shouldBe InstantBinding.invalidTimestamp(testKey)
   }
 }

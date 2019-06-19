@@ -5,6 +5,7 @@ import com.github.fulrich.scalify.serialization.url.installation.InstallationUrl
 
 
 package object url
-  extends UrlBindingDsl
+  extends UrlBindingTypes
+  with UrlBindingDsl
   with BaseUrlBindings
   with InstallationUrlBindings
