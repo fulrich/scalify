@@ -1,10 +1,11 @@
 package com.github.fulrich.scalify.hmac
 
 import com.github.fulrich.scalify.ShopifyConfiguration
+import io.lemonlabs.uri.QueryString
 
 
-object Hmac {
-  def apply(hmac: Option[String], payload: Option[String])(implicit configuration: ShopifyConfiguration): Hmac[String] = {
+object Hmac extends ShopifyQueryString{
+  def apply[A](hmac: Option[String], payload: Option[A])(implicit configuration: ShopifyConfiguration): Hmac[A] = {
     val optionalHmac = for {
       someHmac <- hmac
       somePayload <- payload
@@ -13,8 +14,12 @@ object Hmac {
     optionalHmac getOrElse Invalid
   }
 
-  def apply(hmac: String, payload: String)(implicit configuration: ShopifyConfiguration): Hmac[String] =
-    if (ShopifyHmac.validate(hmac, payload)) Valid(payload) else Invalid
+  def apply(hmac: String, payload: QueryString)(implicit configuration: ShopifyConfiguration): Hmac[QueryString] =
+    apply(hmac, payload.toSortedString).map(_ => payload)
+
+  def apply[A](hmac: String, payload: A)(implicit configuration: ShopifyConfiguration): Hmac[A] =
+    if (ShopifyHmac.validate(hmac, payload.toString)) Valid(payload)
+    else Invalid
 }
 
 sealed abstract class Hmac[+A] {

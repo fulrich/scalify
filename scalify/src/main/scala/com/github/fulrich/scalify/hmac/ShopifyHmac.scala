@@ -1,6 +1,7 @@
 package com.github.fulrich.scalify.hmac
 
 import com.github.fulrich.scalify.ShopifyConfiguration
+import io.lemonlabs.uri.QueryString
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
@@ -21,12 +22,22 @@ class ShopifyHmac(implicit val shopifyConfig: ShopifyConfiguration) {
 }
 
 
-object ShopifyHmac {
+object ShopifyHmac extends ShopifyQueryString {
+  val HmacKey = "hmac"
   val Algorithm = "HmacSHA256"
 
-  def validate(hmac: String, payload: String)(implicit config: ShopifyConfiguration): Boolean =
-    new ShopifyHmac().validate(hmac, payload)
+  def validate[A](hmac: String, payload: A)(implicit config: ShopifyConfiguration): Boolean =
+    new ShopifyHmac().validate(hmac, payload.toString)
 
-  def calculateHmac(payload: String)(implicit config: ShopifyConfiguration): String =
-    new ShopifyHmac().calculateHmac(payload)
+  def validate(payload: QueryString)(implicit configuration: ShopifyConfiguration): Option[Hmac[QueryString]] =
+    payload.param(HmacKey) map { hmac => Hmac(hmac, payload.removeAll(HmacKey)) }
+
+  def calculateHmac[A](payload: A)(implicit config: ShopifyConfiguration): String =
+    new ShopifyHmac().calculateHmac(payload.toString)
+
+  def calculateHmac(query: QueryString)(implicit config: ShopifyConfiguration): String =
+    calculateHmac(query.toSortedString)
+
+  def addHmac(payload: QueryString)(implicit configuration: ShopifyConfiguration): QueryString =
+    payload.addParam(HmacKey, calculateHmac(payload))
 }

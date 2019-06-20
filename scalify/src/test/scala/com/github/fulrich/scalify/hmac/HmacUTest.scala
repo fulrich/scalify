@@ -3,6 +3,7 @@ package com.github.fulrich.scalify.hmac
 import com.github.fulrich.scalify.ShopifyConfiguration
 import com.github.fulrich.scalify.generators.ShopifyConfigurationGenerator
 import com.github.fulrich.testcharged.generators._
+import io.lemonlabs.uri.QueryString
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatest.{FunSuite, Matchers}
 
@@ -59,5 +60,19 @@ class HmacUTest extends FunSuite with Matchers with GeneratorDrivenPropertyCheck
     val payload = Generate.alpha.value
     Valid(payload).toOption shouldBe Some(payload)
     Invalid.toOption shouldBe None
+  }
+
+  test("Can build an Hmac from a QueryString") {
+    val query = QueryString.fromPairs(
+      Generate.alpha.tiny.value -> Generate.alpha.small.value,
+      Generate.alpha.tiny.value -> Generate.alpha.small.value,
+      Generate.alpha.tiny.value -> Generate.alpha.small.value
+    )
+
+    val validHmac = ShopifyHmac.calculateHmac(query)
+    val invalidHmac = Generate.alphaNumeric.value
+
+    Hmac(validHmac, query) shouldBe Valid(query)
+    Hmac(invalidHmac, query) shouldBe Invalid
   }
 }
