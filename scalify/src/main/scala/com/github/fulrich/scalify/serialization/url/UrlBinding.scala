@@ -24,7 +24,5 @@ trait UrlBinding[A] extends UrlBindingTypes {
   def bind(key: String, query: QueryString): UrlBind[A] = optionalBind(key, query).getOrElse(missingError(key))
 
 
-  def unbind(key: String, value: A): String = unbind(key -> value.toString)
-
-  protected def unbind(keyValuePair: (String, String)): String = s"${keyValuePair._1}=${keyValuePair._2}"
+  def unbind(key: String, value: A): QueryString = QueryString.fromPairs(key -> value.toString)
 }

@@ -52,6 +52,6 @@ class UrlBindingUTest extends FunSuite with Matchers with OptionValues {
   }
 
   test("The simple default unbind will take the bound value and unbind it") {
-    TestIntBinding.unbind(Key, 25) shouldBe "int=25"
+    TestIntBinding.unbind(Key, 25) shouldBe QueryString.fromPairs(Key -> "25")
   }
 }

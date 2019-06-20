@@ -17,11 +17,10 @@ object AuthorizeConfirmationUrlBinding extends ObjectUrlBinding[AuthorizeConfirm
       bind[Instant](AuthorizeConfirmation.TimestampKey, query)
     )(AuthorizeConfirmation.apply)
 
-  override def unbind(parameters: AuthorizeConfirmation): String =
-    unbindList(
-      unbind(AuthorizeConfirmation.ShopKey, parameters.shop),
-      unbind(AuthorizeConfirmation.AuthorizationCodeKey, parameters.authorizationCode),
-      unbind(AuthorizeConfirmation.NonceKey, parameters.nonce),
-      unbind(AuthorizeConfirmation.TimestampKey, parameters.timestamp)
-    )
+  override def unbind(parameters: AuthorizeConfirmation): QueryString = unbindList(
+    unbind(AuthorizeConfirmation.ShopKey, parameters.shop),
+    unbind(AuthorizeConfirmation.AuthorizationCodeKey, parameters.authorizationCode),
+    unbind(AuthorizeConfirmation.NonceKey, parameters.nonce),
+    unbind(AuthorizeConfirmation.TimestampKey, parameters.timestamp)
+  )
 }

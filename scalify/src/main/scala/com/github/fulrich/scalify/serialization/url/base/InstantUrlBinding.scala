@@ -10,7 +10,7 @@ import org.scalactic._
 import scala.util.{Failure, Success, Try}
 
 
-object InstantBinding extends UrlBinding[Instant] {
+object InstantUrlBinding extends UrlBinding[Instant] {
   override val missingMessage = "An Instant is required."
   def invalidTimestamp(key: String) = Bad(One(ScalifyError("Unable to parse as an Instant.", Some(key))))
 
@@ -23,5 +23,6 @@ object InstantBinding extends UrlBinding[Instant] {
       }
     }
 
-  override def unbind(key: String, instant: Instant): String = unbind(key -> instant.getEpochSecond.toString)
+  override def unbind(key: String, instant: Instant): QueryString =
+    QueryString.fromPairs(key -> instant.getEpochSecond.toString)
 }

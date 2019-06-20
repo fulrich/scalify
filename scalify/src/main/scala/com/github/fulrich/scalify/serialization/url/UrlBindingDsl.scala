@@ -22,7 +22,8 @@ trait UrlBindingDsl extends UrlBindingTypes {
   def bind[A](key: String, query: QueryString)(implicit binding: UrlBinding[A]): UrlBind[A] =
     binding.bind(key, query)
 
-  def unbind[A](key: String, value: A)(implicit binding: UrlBinding[A]): String = binding.unbind(key, value)
+  def unbind[A](key: String, value: A)(implicit binding: UrlBinding[A]): QueryString =
+    binding.unbind(key, value)
 
 
   def bind[A](query: QueryString)(implicit binding: ObjectUrlBinding[A]): UrlBind[A] = binding.bind(query)
@@ -31,5 +32,5 @@ trait UrlBindingDsl extends UrlBindingTypes {
 
   def bind[A](queryMap: QueryMap)(implicit binding: ObjectUrlBinding[A]): UrlBind[A] = binding.bind(queryMap)
 
-  def unbind[A](value: A)(implicit binding: ObjectUrlBinding[A]): String = binding.unbind(value)
+  def unbind[A](value: A)(implicit binding: ObjectUrlBinding[A]): QueryString = binding.unbind(value)
 }

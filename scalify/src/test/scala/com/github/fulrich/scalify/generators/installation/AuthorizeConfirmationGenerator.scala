@@ -5,7 +5,7 @@ import com.github.fulrich.testcharged.generators._
 import org.scalacheck.Gen
 
 
-object InstallConfirmationGenerator {
+object AuthorizeConfirmationGenerator {
   def apply(): Gen[AuthorizeConfirmation] =
     for {
       shop <- Generate.alpha

@@ -1,13 +1,13 @@
 package com.github.fulrich.scalify.installation
 
-import com.github.fulrich.scalify.generators.installation.InstallConfirmationGenerator
+import com.github.fulrich.scalify.generators.installation.AuthorizeConfirmationGenerator
 import com.github.fulrich.testcharged.generators._
 import org.scalatest.{FunSuite, Matchers}
 
 
 class AuthorizeConfirmationUTest extends FunSuite with Matchers {
   test("Can validate the nonce value on the InstallConfirmation") {
-    val installConfirmation = InstallConfirmationGenerator().value
+    val installConfirmation = AuthorizeConfirmationGenerator().value
 
     installConfirmation.validateNonce(installConfirmation.nonce) shouldBe true
     installConfirmation.validateNonce(Generate.alpha.value) shouldBe false

@@ -10,5 +10,5 @@ abstract class BindableFromBinding[A](binding: UrlBinding[A]) extends QueryStrin
       boundValue.badMap(errors => ScalifyErrorsToString(key, errors)).toEither
     }
 
-  override def unbind(key: String, value: A): String = binding.unbind(key, value)
+  override def unbind(key: String, value: A): String = binding.unbind(key, value).toString.drop(1)
 }

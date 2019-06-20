@@ -11,7 +11,7 @@ trait ObjectUrlBinding[A] extends UrlBindingDsl {
   def bind(query: QueryString): UrlBind[A]
 
 
-  def unbind(value: A): String
+  def unbind(value: A): QueryString
 
-  def unbindList(values: String*): String = values.sorted.mkString("&")
+  def unbindList(queries: QueryString*): QueryString = queries.reduce[QueryString] { case (left, right) => left.addParams(right) }
 }

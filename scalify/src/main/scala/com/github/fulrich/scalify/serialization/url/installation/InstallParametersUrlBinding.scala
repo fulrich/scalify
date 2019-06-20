@@ -15,9 +15,8 @@ object InstallParametersUrlBinding extends ObjectUrlBinding[InstallParameters] w
       bind[Instant](InstallParameters.TimestampKey, query)
     )(InstallParameters.apply)
 
-  override def unbind(parameters: InstallParameters): String =
-    unbindList(
-      unbind(InstallParameters.ShopKey, parameters.shop),
-      unbind(InstallParameters.TimestampKey, parameters.timestamp)
-    )
+  override def unbind(parameters: InstallParameters): QueryString = unbindList(
+    unbind(InstallParameters.ShopKey, parameters.shop),
+    unbind(InstallParameters.TimestampKey, parameters.timestamp)
+  )
 }

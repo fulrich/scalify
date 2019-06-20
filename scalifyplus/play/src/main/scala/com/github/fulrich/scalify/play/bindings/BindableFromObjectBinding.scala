@@ -13,5 +13,5 @@ abstract class BindableFromObjectBinding[A](binding: ObjectUrlBinding[A]) extend
         .toEither
     )
 
-  override def unbind(key: String, value: A): String = binding.unbind(value)
+  override def unbind(key: String, value: A): String = binding.unbind(value).toString.drop(1)
 }
