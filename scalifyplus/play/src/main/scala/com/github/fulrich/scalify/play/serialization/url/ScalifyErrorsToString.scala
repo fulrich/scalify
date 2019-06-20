@@ -1,8 +1,7 @@
-package com.github.fulrich.scalify.play.bindings
+package com.github.fulrich.scalify.play.serialization.url
 
 import com.github.fulrich.scalify.ScalifyError
 import org.scalactic.Every
-
 
 object ScalifyErrorsToString {
   private val ErrorDelimiter: String = "<br>"

@@ -1,8 +1,8 @@
-package com.github.fulrich.scalify.play.installation.json
+package com.github.fulrich.scalify.play.serialization.json.installation
 
 import com.github.fulrich.scalify.installation.TokenRequest
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json.{Format, JsPath}
 
 
 object TokenRequestJson {

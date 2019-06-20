@@ -1,4 +1,4 @@
-package com.github.fulrich.scalify.play.bindings
+package com.github.fulrich.scalify.play.serialization.url
 
 import com.github.fulrich.scalify.serialization.url.UrlBinding
 import play.api.mvc.QueryStringBindable

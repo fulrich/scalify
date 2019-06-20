@@ -1,4 +1,4 @@
-package com.github.fulrich.scalify.play.bindings.installation
+package com.github.fulrich.scalify.play.serialization.url.installation
 
 import com.github.fulrich.scalify.installation.{AuthorizeConfirmation, InstallParameters}
 import play.api.mvc.QueryStringBindable
