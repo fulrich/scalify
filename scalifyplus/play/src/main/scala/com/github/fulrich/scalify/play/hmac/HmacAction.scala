@@ -12,11 +12,11 @@ import scala.concurrent.{ExecutionContext, Future}
 
 
 class HmacAction @Inject()(val parser: BodyParsers.Default, configuration: ShopifyConfiguration)(implicit val executionContext: ExecutionContext)
-  extends ActionRefiner[Request, HmacWrappedRequest] with ActionBuilder[HmacWrappedRequest, AnyContent] {
+  extends ActionRefiner[Request, HmacRequest] with ActionBuilder[HmacRequest, AnyContent] {
 
-  def refine[A](request: Request[A]): Future[Either[Result, HmacWrappedRequest[A]]] =
+  def refine[A](request: Request[A]): Future[Either[Result, HmacRequest[A]]] =
     ShopifyHmac.validate(QueryStringFromMap(request.queryString))(configuration) match {
-      case Some(Valid(payload)) => Future.successful(Right(new HmacWrappedRequest(payload, request)))
+      case Some(Valid(payload)) => Future.successful(Right(new HmacRequest(payload, request)))
       case Some(Invalid) => Future.successful(InvalidHmac)
       case None => Future.successful(MissingHmac)
     }
