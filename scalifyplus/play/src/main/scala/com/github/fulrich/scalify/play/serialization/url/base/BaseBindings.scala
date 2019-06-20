@@ -11,6 +11,6 @@ trait  BaseBindings {
 
 object BaseBindings {
   val RouteImports: Seq[String] = Seq(
-    classOf[Instant].getCanonicalName,
+    classOf[Instant].getCanonicalName
   )
 }
