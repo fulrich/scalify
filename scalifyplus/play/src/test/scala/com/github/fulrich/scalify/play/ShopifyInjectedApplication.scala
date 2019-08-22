@@ -10,12 +10,17 @@ import com.github.fulrich.testcharged.generators._
 import org.scalatest.TestSuite
 import org.scalatestplus.play.FakeApplicationFactory
 
+import scala.reflect.ClassTag
+
 
 trait ShopifyInjectedApplication extends FakeApplicationFactory with Injecting { self: TestSuite with HasApp =>
   val Configuration: ShopifyConfiguration = ShopifyConfigurationGenerator().value
 
-  override def fakeApplication(): Application =
-    GuiceApplicationBuilder().overrides(
-      bind[ShopifyConfiguration].toInstance(Configuration)
-    ).build()
+  private def applicationBuilder: GuiceApplicationBuilder =
+    GuiceApplicationBuilder().overrides(bind[ShopifyConfiguration].toInstance(Configuration))
+
+  override def fakeApplication(): Application = applicationBuilder.build()
+
+  def customInject[A : ClassTag](customize: GuiceApplicationBuilder => GuiceApplicationBuilder): A =
+    customize(applicationBuilder).build().injector.instanceOf[A]
 }

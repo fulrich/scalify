@@ -51,6 +51,9 @@ lazy val scalifyplusplay = (project in file("scalifyplus/play"))
       Libraries.Scalactic,
       Libraries.ScalaTest,
       Libraries.TestCharged
+    ),
+    excludeDependencies ++= Seq(
+      ExclusionRule("com.github.fulrich", "scalify")
     )
   )
   .dependsOn(scalify % "test->test;compile->compile")
