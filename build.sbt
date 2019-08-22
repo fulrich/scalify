@@ -12,45 +12,46 @@ inThisBuild(List(
     )
   ),
   resolvers += Resolver.sonatypeRepo("releases"),
-  scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.11.12", "2.12.8"),
+  scalaVersion := "2.13.0",
+  crossScalaVersions := Seq("2.12.8", "2.13.0"),
   publishArtifact in Test := true
 ))
 
 // Versions
 val Libraries = new {
-  val TestChargedVersion = "0.1.12"
+  val TestChargedVersion = "0.1.16"
   val TestCharged = "com.github.fulrich" %% "test-charged" % TestChargedVersion % Test
 
   val ScalacticVersion = "3.0.8"
   val Scalactic = "org.scalactic" %% "scalactic" % ScalacticVersion
 
-  val ScalaTestVersion = "3.0.5"
-  val ScalaTest = "org.scalatest" %% "scalatest" % "3.0.5" % Test
+  val ScalaTestVersion = "3.0.8"
+  val ScalaTest = "org.scalatest" %% "scalatest" % ScalaTestVersion % Test
+
+  val PureConfigVersion = "0.11.1"
+  val PureConfig = "com.github.pureconfig" %% "pureconfig" % PureConfigVersion
 }
+
+val CommonLibraries = Seq(
+  Libraries.Scalactic,
+  Libraries.PureConfig,
+  Libraries.ScalaTest,
+  Libraries.TestCharged
+)
 
 // Root Project Setup
 name := "ScalifyRoot"
 skip in publish := true
 
-
 // Core Scalify
 lazy val scalify = (project in file("scalify"))
   .settings(
-    libraryDependencies ++= Seq(
-      Libraries.Scalactic,
-      Libraries.ScalaTest,
-      Libraries.TestCharged
-    )
+    libraryDependencies ++= CommonLibraries
   )
 
 // Subprojects
 lazy val scalifyplusplay = (project in file("scalifyplus/play"))
   .settings(
-    libraryDependencies ++= Seq(
-      Libraries.Scalactic,
-      Libraries.ScalaTest,
-      Libraries.TestCharged
-    )
+    libraryDependencies ++= CommonLibraries
   )
   .dependsOn(scalify % "test->test;compile->compile")
