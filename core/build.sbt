@@ -1,4 +1,4 @@
-name := """scalify"""
+name := """core"""
 
 // Production Dependencies
 libraryDependencies ++= Seq(
