@@ -19,7 +19,7 @@ jobs:
   include:
     - stage: SBT test
       env: JOB=SBT Test
-      script: sbt scalifyplussbtplay/scripted
+      script: sbt plussbtplay/scripted
     - stage: release
       env: JOB=Release
       script: sbt ci-release
