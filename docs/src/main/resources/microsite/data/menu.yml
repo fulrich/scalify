@@ -1,6 +1,6 @@
 options:
   - title: Quick Start
-    url: docs/quick-start.html
+    url: docs/index.html
     menu_section: intro
 
   - title: Scalify
