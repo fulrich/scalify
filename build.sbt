@@ -1,3 +1,7 @@
+// Scala Versions
+lazy val Scala212 = "2.12.8"
+lazy val Scala213 = "2.13.0"
+
 // Publishing Information
 inThisBuild(List(
   organization := "com.github.fulrich",
@@ -12,32 +16,10 @@ inThisBuild(List(
     )
   ),
   resolvers += Resolver.sonatypeRepo("releases"),
-  scalaVersion := "2.13.0",
-  crossScalaVersions := Seq("2.12.8", "2.13.0"),
+  scalaVersion := Scala213,
+  crossScalaVersions := Seq(Scala212, Scala213),
   publishArtifact in Test := true
 ))
-
-// Versions
-val Libraries = new {
-  val TestChargedVersion = "0.1.16"
-  val TestCharged = "com.github.fulrich" %% "test-charged" % TestChargedVersion % Test
-
-  val ScalacticVersion = "3.0.8"
-  val Scalactic = "org.scalactic" %% "scalactic" % ScalacticVersion
-
-  val ScalaTestVersion = "3.0.8"
-  val ScalaTest = "org.scalatest" %% "scalatest" % ScalaTestVersion % Test
-
-  val PureConfigVersion = "0.11.1"
-  val PureConfig = "com.github.pureconfig" %% "pureconfig" % PureConfigVersion
-}
-
-val CommonLibraries = Seq(
-  Libraries.Scalactic,
-  Libraries.PureConfig,
-  Libraries.ScalaTest,
-  Libraries.TestCharged
-)
 
 // Root Project Setup
 name := "Scalify"
@@ -45,25 +27,25 @@ skip in publish := true
 
 lazy val core = (project in file("core"))
   .settings(
-    libraryDependencies ++= CommonLibraries
+    libraryDependencies ++= Libraries.Common
   )
 
 // Scalify Plus Play Framework
 lazy val plusplay = (project in file("plus/play"))
   .settings(
-    libraryDependencies ++= CommonLibraries,
+    libraryDependencies ++= Libraries.Common,
   )
   .dependsOn(core % "test->test;compile->compile")
 
 lazy val plussbtplay = (project in file("plus/sbt/play"))
   .settings(
-    scalaVersion := "2.12.8",
-    crossScalaVersions := Seq("2.12.8")
+    scalaVersion := Scala212,
+    crossScalaVersions := Seq(Scala212)
   )
 
 // Documentation
 lazy val documentation = (project in file("docs"))
   .settings(
-    scalaVersion := "2.12.8",
-    crossScalaVersions := Seq("2.12.8")
+    scalaVersion := Scala212,
+    crossScalaVersions := Seq(Scala212)
   )
