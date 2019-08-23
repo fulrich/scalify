@@ -1,0 +1,8 @@
+# run the scoverage generation
+> shopifyGenerate shopify-conf
+# there should be a development and production shopify.conf
+$ exists conf/development/shopify.conf
+$ exists conf/production/shopify.conf
+# confirm those files are the correct values
+$ must-mirror conf/development/shopify.conf results/development.conf
+$ must-mirror conf/production/shopify.conf results/production.conf

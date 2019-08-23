@@ -43,15 +43,20 @@ val CommonLibraries = Seq(
 name := "ScalifyRoot"
 skip in publish := true
 
-// Core Scalify
 lazy val scalify = (project in file("scalify"))
   .settings(
     libraryDependencies ++= CommonLibraries
   )
 
-// Subprojects
+// Scalify Plus Play Framework
 lazy val scalifyplusplay = (project in file("scalifyplus/play"))
   .settings(
-    libraryDependencies ++= CommonLibraries
+    libraryDependencies ++= CommonLibraries,
   )
   .dependsOn(scalify % "test->test;compile->compile")
+
+lazy val scalifyplussbtplay = (project in file("scalifyplus/sbt/play"))
+  .settings(
+    scalaVersion := "2.12.8",
+    crossScalaVersions := Seq("2.12.8")
+  )

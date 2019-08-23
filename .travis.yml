@@ -11,11 +11,15 @@ before_install:
 
 stages:
   - name: test
+  - name: SBT test
   - name: release
     if: tag IS present AND NOT fork
 
 jobs:
   include:
+    - stage: SBT test
+      env: JOB=SBT Test
+      script: sbt scalifyplussbtplay/scripted
     - stage: release
       env: JOB=Release
       script: sbt ci-release
