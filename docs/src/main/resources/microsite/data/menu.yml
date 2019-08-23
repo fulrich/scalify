@@ -4,7 +4,7 @@ options:
     menu_section: intro
 
   - title: Scalify
-    url: docs/scalify.html
+    url: docs/core/index.html
     menu_section: scalify
 
   - title: Plus
