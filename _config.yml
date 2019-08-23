@@ -1,0 +1,11 @@
+name: Scalify
+baseurl: /scalify
+description: Build Shopify Apps using Scala
+highlighter: rouge
+docs: true
+collections:
+  tut:
+    output: true
+version: 0.0.21+6-55906ab4-SNAPSHOT
+org: com.github.fulrich
+markdown: kramdown
