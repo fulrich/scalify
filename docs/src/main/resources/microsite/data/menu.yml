@@ -1,0 +1,18 @@
+options:
+  - title: Quick Start
+    url: docs/quick-start.html
+    menu_section: intro
+
+  - title: Scalify
+    url: docs/scalify.html
+    menu_section: scalify
+
+  - title: Plus
+    url: docs/plus/index.html
+    menu_section: plus
+
+    nested_options:
+      - title: Play
+        url: docs/plus/play.html
+      - title: SBT Play
+        url: docs/plus/sbt-play.html
