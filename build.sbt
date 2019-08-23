@@ -60,3 +60,10 @@ lazy val plussbtplay = (project in file("plus/sbt/play"))
     scalaVersion := "2.12.8",
     crossScalaVersions := Seq("2.12.8")
   )
+
+// Documentation
+lazy val documentation = (project in file("docs"))
+  .settings(
+    scalaVersion := "2.12.8",
+    crossScalaVersions := Seq("2.12.8")
+  )
