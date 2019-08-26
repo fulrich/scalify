@@ -6,6 +6,6 @@ docs: true
 collections:
   tut:
     output: true
-version: 0.0.21+16-d3fb9aa6-SNAPSHOT
+version: 0.0.21+17-1659cf6a-SNAPSHOT
 org: com.github.fulrich
 markdown: kramdown
