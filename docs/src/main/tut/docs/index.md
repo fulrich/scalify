@@ -41,23 +41,31 @@ We have created a [fork](https://github.com/fulrich/shopify-app-cli) of the CLI 
 
 To use it first clone the [fork](https://github.com/fulrich/shopify-app-cli):
 
-`git clone https://github.com/fulrich/shopify-app-cli.git`
+```
+git clone https://github.com/fulrich/shopify-app-cli.git
+```
 
 Next navigate into the git directory you just cloned.
 Checkout the branch that introduces Scala to the Shopify App CLI:
 
-`git checkout hackdays-2019`
+```
+git checkout hackdays-2019
+```
 
 Finally the Shopify App CLI has a great way to start using a development version of the CLI. 
 You can tell the Shopify App CLI to use the Scala Fork:
 
-`shopify load-dev '/path/to/scala/fork`
+```
+shopify load-dev '/path/to/scala/fork
+```
 
 ### Create Your App
 Now that we have the App CLI setup we can start working with a new app.
 Navigation to where you would like your application code to live and run the following command:
 
-`shopify create project project-name`
+```
+shopify create project project-name
+```
 
 This will use the Shopify App CLI to start creating a new Shopify App.
 If you loaded the forked Scala version correctly you should see the following options:
@@ -74,7 +82,9 @@ This will check your dependencies to ensure you have SBT and Javac [installed](#
 If the creation step ran successfully you should be all set to run your Scala Play! Framework Shopify app.
 Run the command:
 
-`shopify serve`
+```
+shopify serve
+```
 
 The first time you run this command the Shopify App CLI will need to generate your `.env` file it uses to define your app settings.
 In your browser navigate to the App you created in the [Prerequisites](#prerequisites) step and go to your "App Setup".
@@ -91,7 +101,9 @@ You should see something similar in your console:
 This will be important as you will have to go back to your App Setup and whitelist your ngrok subdomain.
 On your App Setup Page update your App URL to:
 
-`https://########.ngrok.io/`
+```
+https://########.ngrok.io/
+```
 
 Then under the URLs section add the following Whitelisted Redirection URLs:
 ```
